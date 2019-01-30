@@ -1,37 +1,51 @@
 #include "bot.h"
 
-Leg::Leg(int hip, int knee, int ankle){
-  joints.at(0).attach(hip);
-  joints.at(1).attach(knee);
-  joints.at(2).attach(ankle);
+Leg::Leg(int hipServo, int kneeServo, int ankleServo){
+  hip.attach(hipServo);
+  knee.attach(kneeServo);
+  ankle.attach(ankleServo);
+}
+
+void Leg::setHipAngle(int hipAngle)
+{
+  hip.write(hipAngle);
 }
 
 void Leg::setAngle(int hipAngle, int kneeAngle, int ankleAngle){
-  joints.at(0).write(hipAngle);
-  joints.at(0).write(kneeAngle);
-  joints.at(0).write(ankleAngle);
+  hip.write(hipAngle);
+  delay(1000);
+  knee.write(kneeAngle);
+  delay(1000);
+  ankle.write(ankleAngle);
+  delay(1000);
 }
 
-vector<int> getAngle() const{
-  vector<int> angles;
-  angles.push_back(joints.at(0).read());
-  angles.push_back(joints.at(1).read());
-  angles.push_back(joints.at(2).read());
-  return angles;
+int Leg::getAngle(char serv) const{
+  switch(serv)
+  {
+    case 'h': return hip.read();
+    case 'k': return knee.read();
+    case 'a': return ankle.read();
+  }
 }
 
 Body::Body(double x, double y, double z){
-  position.at(0) = x;
-  position.at(1) = y;
-  position.at(2) = z;
+  xPosition = x;
+  yPosition = y;
+  zPosition = z;
 }
 
 void Body::setPosition(double x, double y, double z){
-  position.at(0) = x;
-  position.at(1) = y;
-  position.at(2) = z;
+  xPosition = x;
+  yPosition = y;
+  zPosition = z;
 }
 
-vector<double> Body::getPosition() const{
-  return position;
+double Body::getPosition(char dimension) const{
+  switch(dimension)
+  {
+    case 'x': return xPosition;
+    case 'y': return yPosition;
+    case 'z': return zPosition;
+  }
 }

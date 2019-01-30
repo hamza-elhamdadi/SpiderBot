@@ -1,31 +1,27 @@
-#include <StandardCplusplus.h>
-#include <vector>
+#include <Servo.h>
+#include "Arduino.h"
 
 using namespace std;
 
 class Leg{
   private:
-     vector<Servo> joints(3);
+     Servo hip;
+     Servo knee;
+     Servo ankle;
   public:
      Leg(int,int,int);
      void setAngle(int,int,int);
-     vector<int> getAngle() const;
-}
+     void setHipAngle(int);
+     int getAngle(char serv) const;
+};
 
 class Body{
   private:
-     vector<double> position;
+     double xPosition;
+     double yPosition;
+     double zPosition;
   public:
      Body(double,double,double);
      void setPosition(double,double,double);
-     vector<double> getPosition() const;
-}
-
-class Spider(){
-  private:
-     Body body;
-     vector<Leg*> legs;
-  public:
-     Spider(vector<Leg*>,Body);
-     
-}
+     double getPosition(char dimension) const;
+};
