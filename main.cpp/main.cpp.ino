@@ -31,6 +31,13 @@ void setup() {
   Leg legBackRight(hipPinBackRight, kneePinBackRight, anklePinBackRight);
   Leg legBackLeft(hipPinBackLeft, kneePinBackLeft, anklePinBackLeft);
 
+  legFrontRight.setAngle(90, 80, 40);
+  legFrontLeft.setAngle(90, 30, 80);
+  legMidRight.setAngle(90, 55, 70);
+  legMidLeft.setAngle(90, 60, 70);
+  legBackRight.setAngle(90, 40, 70);
+  legBackLeft.setAngle(50, 30, 0);
+
   legFrontRight.setAngle(90, 130, 140);
   legFrontLeft.setAngle(90, 80, 180);
   legMidRight.setAngle(90, 105, 170);
@@ -41,23 +48,25 @@ void setup() {
   while(true)
   {
       
-      legFrontLeft.setAngle(70, 80, 180);
-      legMidRight.setAngle(70, 105, 170);
-      legBackLeft.setAngle(30, 80, 100);
+      legFrontLeft.setHipAngle(75);
+      legMidRight.setHipAngle(75);
+      legBackLeft.setHipAngle(35);
+      delay(2000);
 
-      legFrontRight.setAngle(110, 130, 140);
-      legMidLeft.setAngle(110, 110, 170);
-      legBackRight.setAngle(110, 90, 170);
+      legFrontRight.setHipAngle(105);
+      legMidLeft.setHipAngle(105);
+      legBackRight.setHipAngle(105);
+      delay(2000);
 
-      legFrontRight.setAngle(90, 130, 140);
-      legMidLeft.setAngle(90, 110, 170);
-      legBackRight.setAngle(90, 90, 170);
+      legFrontLeft.setHipAngle(90);
+      legMidRight.setHipAngle(90);
+      legBackLeft.setHipAngle(50);
+      delay(2000);
 
-      legFrontLeft.setAngle(90, 80, 180);
-      legMidRight.setAngle(90, 105, 170);
-      legBackLeft.setAngle(50, 80, 100);
-
-      
+      legFrontRight.setHipAngle(90);
+      legMidLeft.setHipAngle(90);
+      legBackRight.setHipAngle(90);
+      delay(2000);
 
   }
 
