@@ -13,11 +13,11 @@ void Leg::setHipAngle(int hipAngle)
 
 void Leg::setAngle(int hipAngle, int kneeAngle, int ankleAngle){
   hip.write(hipAngle);
-  delay(1000);
-  knee.write(kneeAngle);
-  delay(1000);
+  delay(250);
   ankle.write(ankleAngle);
-  delay(1000);
+  delay(250);
+  knee.write(kneeAngle);
+  delay(250);
 }
 
 int Leg::getAngle(char serv) const{

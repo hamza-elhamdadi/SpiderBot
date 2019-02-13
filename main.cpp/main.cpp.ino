@@ -1,3 +1,9 @@
+#include <boarddefs.h>
+#include <IRremote.h>
+#include <IRremoteInt.h>
+#include <ir_Lego_PF_BitStreamEncoder.h>
+
+
 #include "bot.h"
 
 #define hipPinFrontRight 26
@@ -21,9 +27,17 @@
 #define anklePinBackRight 34
 #define anklePinBackLeft 37
 
+#define remotePin 50
+
+IRrecv irrecv(remotePin);
+decode_results results;
+
 
 
 void setup() {
+  Serial.begin(9600);
+  irrecv.enableIRIn();
+  
   Leg legFrontRight(hipPinFrontRight, kneePinFrontRight, anklePinFrontRight);
   Leg legFrontLeft(hipPinFrontLeft, kneePinFrontLeft, anklePinFrontLeft);
   Leg legMidRight(hipPinMidRight, kneePinMidRight, anklePinMidRight);
@@ -42,13 +56,52 @@ void setup() {
   legFrontLeft.setAngle(90, 80, 180);
   legMidRight.setAngle(90, 105, 170);
   legMidLeft.setAngle(90, 110, 170);
-  legBackRight.setAngle(90, 90, 170);
-  legBackLeft.setAngle(50, 80, 100);
+  legBackRight.setAngle(90, 110, 170);
+  legBackLeft.setAngle(50,110, 180);
   
   while(true)
   {
-      
-      legFrontLeft.setHipAngle(75);
+      if(irrecv.decode(&results))
+      {
+        if(results.value == 16753245)
+        {
+          legFrontRight.setAngle(90, 130, 140);
+          legFrontLeft.setAngle(90, 80, 180);
+          legMidRight.setAngle(90, 105, 170);
+          legMidLeft.setAngle(90, 110, 170);
+          legBackRight.setAngle(90, 110, 180);
+          legBackLeft.setAngle(50, 110, 170);
+        }
+        else if(results.value == 16736925)
+        {
+          legFrontRight.setAngle(90, 80, 40);
+          legFrontLeft.setAngle(90, 30, 80);
+          legMidRight.setAngle(90, 55, 70);
+          legMidLeft.setAngle(90, 60, 70);
+          legBackRight.setAngle(90, 40, 70);
+          legBackLeft.setAngle(50, 30, 0);
+        }
+        else if(results.value == 16769565)
+        {
+          legFrontRight.setAngle(60, 130, 140);
+          legFrontLeft.setAngle(120, 80, 180);
+          legMidRight.setAngle(60, 105, 170);
+          legMidLeft.setAngle(120, 110, 170);
+          legBackRight.setAngle(60, 110, 180);
+          legBackLeft.setAngle(80, 110, 170);
+        }
+        else if(results.value == 16720605)
+        {
+          legFrontRight.setAngle(120, 50, 90);
+          legFrontLeft.setAngle(60, 0, 130);
+          legMidRight.setAngle(120, 25, 120);
+          legMidLeft.setAngle(60, 20, 120);
+          legBackRight.setAngle(120, 20, 130);
+          legBackLeft.setAngle(20, 20, 120);
+        }
+        irrecv.resume();     
+      }
+      /*legFrontLeft.setHipAngle(75);
       legMidRight.setHipAngle(75);
       legBackLeft.setHipAngle(35);
       delay(2000);
@@ -66,10 +119,17 @@ void setup() {
       legFrontRight.setHipAngle(90);
       legMidLeft.setHipAngle(90);
       legBackRight.setHipAngle(90);
-      delay(2000);
+      delay(2000);*/
 
   }
 
 }
+
+//Button 0: 16750695
+//Button 1: 16753245
+//Button 2: 16736925
+//Button 3: 16769565
+//Button 4: 16720605
+
 
       
